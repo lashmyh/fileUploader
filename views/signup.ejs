@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Sign up</h1>
+    <div class="container">
+        <form action="/signup" method="POST" class="login-signup-form">
+            <div class="field">
+              <label for="name">Name *</label>
+              <input class="auth-input" type="text" name="name" placeholder="Forename Surname" required>
+            </div>
+            <div class="field">
+              <label for="email">Email address *</label>
+              <input class="auth-input" type="email" name="email" placeholder="e.g. example@email.com" required>
+            </div>
+            <div class="field">
+              <label for="password">Choose a password *</label>
+              <input class="auth-input" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="field">
+              <label for="password_confirm">Confirm your password *</label>
+              <input class="auth-input" type="password" name="password_confirm" placeholder="Password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <% if (error_msg) { %>
+            <div class="alert alert-danger">
+              <%= error_msg %>
+            </div>
+          <% } %>
+        
+          <% if (success_msg) { %>
+            <div class="alert alert-success">
+              <%= success_msg %>
+            </div>
+        <% } %>
+        <a href="/login" class="ex-link">Already have an account? Log in</a>
+        
+    </div>
+      
+
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+          const password = document.querySelector('input[name="password"]').value;
+          const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+    
+          // Check password length
+          if (password.length < 6) {
+            e.preventDefault();
+            alert('Password must be at least 6 characters long.');
+            return;
+          }
+    
+          // Check if passwords match
+          if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match.');
+          }
+        });
+      </script>
+
+    
+      
+      
+
+    
+</body>
+</html>

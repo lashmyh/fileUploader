@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Log in</h1>
+    <div class="container">
+        <form class="login-signup-form" action="/login" method="POST">
+            <div class="field">
+                <label for="email">Email</label>
+                <input class="auth-input" type="email" name="email" placeholder="e.g. example@email.com" required>
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input class="auth-input" type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <% if (error) { %>
+            <div class="alert alert-danger">
+              <%= error %>
+            </div>
+        <% } %>
+        <% if (success_msg) { %>
+            <div class="alert alert-success">
+              <%= success_msg %>
+            </div>
+        <% } %>
+    
+    
+    
+        <a href="/signup" class="ex-link">Don't have an account? Sign up</a>
+    </div>
+
+    
+
+      
+
+      
+
+    
+</body>
+</html>
+
+  

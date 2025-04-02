@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=folder.name %></title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/content-styles.css">
+
+</head>
+<body>
+    <nav>
+        <a href="/folders">Back to all folders</a>
+        <a href="/logout">Logout</a>
+    </nav>
+        <h1><%= folder.name %></h1>
+    <h3>Upload a file</h3>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="new-folder">
+        <input type="file" name="file" id="file" required>
+        <input type="hidden" name="folderId" value="<%= folder.id %>">
+        <button type="submit">Upload</button>
+    </form>
+
+    <header>
+        <h3>All files in this folder</h3>
+        <h3 class="file-no">&#40;<%= folder.files.length %> files&#41;</h3>
+    </header>
+
+    <ul class="content folders">
+        <li class="item file-item table-header">
+            <div class="item-detail">File name</div>
+            <div class="item-detail">Date added</div>
+            <div class="item-detail">Size</div>
+            <div class="item-detail">Type</div>
+        </li>
+        
+        <% if (folder.files.length === 0) { %>
+            <div class="no-files">No files to display</div>
+        <% } else { %>
+            <% folder.files.forEach(file => { %>   
+                <li class="item file-item" onclick="window.location.href='/file/<%= file.id %>?folderId=<%= folder.id %>';">
+                    <div class="item-detail"><%= file.filename %></div>
+                    <div class="item-detail"><%= file.createdAt %></div>
+                    <div class="item-detail"><%= file.size %></div>
+                    
+                    <% if (file.mimetype.length <= 20) { %>
+                        <div class="item-detail"><%= file.mimetype %></div>
+                    <%} else {%>
+                        <div class="item-detail"><%= file.filename.split('.').pop()%></div>
+                    <%}%>
+                    
+                </li>
+            <% }) %>
+        <% } %>
+        
+    </ul>
+    
+</body>
+</html>
+
+

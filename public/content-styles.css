@@ -1,0 +1,128 @@
+body {
+    align-items: center;
+    justify-content:flex-start;
+    align-items: normal;
+    
+}
+
+nav {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+h1 {
+    width: 30em;
+    font-size: 2rem;
+    padding-left: 20px;
+    width: 100%;
+}
+
+
+.new-folder{
+    margin-left: 20px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+input {
+    width: 400px;
+}
+
+button {
+    width: 200px;
+}
+
+.content {
+    margin: 0 20px 20px 20px;
+    grid-template-columns: 1fr;
+}
+
+li {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid var(--darkest);
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-top: 10px;
+    height: 60px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    
+}
+
+li:hover {
+    background-color: var(--third-lightest);
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.delete-btn {
+    width: 50px;
+    display: none;
+}
+
+li:hover .delete-btn {
+    display: block;
+    background-color: var(--third-lightest);
+
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 1rem;
+    align-items: center;
+
+    
+}
+
+.item-detail {
+    text-align: left;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+}
+
+.table-header {
+    background-color: var(--dark-accent);
+    font-weight: 500;
+}
+
+.table-header:hover {
+    cursor: default;
+    font-size: medium;
+    background-color: var(--dark-accent);
+    transform: none;
+}
+
+.folders {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px 10px ;
+    border-radius: 10px;
+    height: 100%;
+    border: 1px solid var(--third-lightest);
+}
+
+header {
+    display: flex;
+    width: 100%;
+}
+
+header h3{
+    align-self: center;
+    text-align: right;
+}
+
+.file-no {
+    font-weight: 300;
+}
+
+.no-files {
+    padding: 20px;
+    text-align: center;
+}
