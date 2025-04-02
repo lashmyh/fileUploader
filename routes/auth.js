@@ -5,7 +5,9 @@ const { PrismaClient } = require('@prisma/client');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-
+router.get('/', (req, res) => {
+  res.redirect('/folders');
+});
 
 router.get('/login', (req, res) => {
   res.render('login');
