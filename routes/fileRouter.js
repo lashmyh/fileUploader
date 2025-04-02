@@ -36,7 +36,6 @@ router.get('/:id', async (req, res) => {
         // generate a signed URL for the file
         const signedUrl = await getSignedUrl(fileRecord.url);
 
-        console.log("your file", fileRecord);
         res.render('file', { file: fileRecord, signedUrl, formattedDate: formatDate(fileRecord.createdAt), formattedSize: formatSize(fileRecord.size) } );
 
 
@@ -89,7 +88,6 @@ router.post('/:id/delete', async (req, res) => {
             },
         });
         
-        console.log('File deleted successfully.');
         res.redirect(`/folders/${folderId}`); // Redirect back to the folder view
     } catch (error) {
         console.error('Error deleting file:', error);

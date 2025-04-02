@@ -53,7 +53,6 @@ router.post('/', upload.single('file'), async (req, res) => {
             },
         });
 
-        console.log('File uploaded successfully:', data);
         res.redirect(`/folders/${folderId}`);
 
 

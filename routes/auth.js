@@ -24,7 +24,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
   const { name, email, password, password_confirm } = req.body;
 
-    //check password length
+    //check password match
     if (password !== password_confirm) {
         req.flash('error_msg', 'Passwords do not match!');
         return res.redirect('/signup');
