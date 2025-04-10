@@ -4,6 +4,8 @@ A simple file storage system built with Express.js, and EJS. This project allows
 
 Link to deployment: https://fileuploader-production-2286.up.railway.app/
 
+![Screenshot](https://github.com/user-attachments/assets/aeec1241-4b79-4c0a-ad14-69b0cf655665)
+
 ## Features
 
 - User authentication with Passport.js
