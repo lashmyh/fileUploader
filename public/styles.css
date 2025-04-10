@@ -159,3 +159,7 @@ a:hover {
     transform: scale(1.04);
 }
 
+.login-link {
+    color: white;
+    text-decoration: none;
+}

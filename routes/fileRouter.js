@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const getSignedUrl = require('../utils/getSignedUrl');
 const supabase = require('../supabaseClient');
 
+const logger = require("../utils/logger")
 const formatDate = require('../utils/formatDate');
 const formatSize = require('../utils/formatSize');
 
@@ -40,7 +41,7 @@ router.get('/:id', async (req, res) => {
 
 
     } catch (error) {
-        console.error('Error fetching file:', error);
+        logger.error('Error fetching file: ' + error.message);
         res.status(500).send('An error occurred while fetching the file.');
     }
 
@@ -57,7 +58,6 @@ router.post('/:id/delete', async (req, res) => {
         const folderId = parseInt(req.query.folderId, 10); 
 
         //find the file to be deleted
-
         const fileRecord = await prisma.file.findFirst({
             where: {
                 id: fileId,
@@ -70,13 +70,13 @@ router.post('/:id/delete', async (req, res) => {
             return res.status(404).send('File not found.');
         }
 
-        // Delete the file from Supabase storage
+        //delete the file from Supabase storage
         const { error } = await supabase.storage
             .from('files') 
             .remove([fileRecord.url]); 
         
         if (error) {
-            console.error('Supabase delete error:', error);
+            logger.error('Supabase delete error: ' + error.message);
             return res.status(500).send('Error deleting file from storage.');
         };
 
@@ -88,9 +88,9 @@ router.post('/:id/delete', async (req, res) => {
             },
         });
         
-        res.redirect(`/folders/${folderId}`); // Redirect back to the folder view
+        res.redirect(`/folders/${folderId}`); 
     } catch (error) {
-        console.error('Error deleting file:', error);
+        logger.error('Error deleting file: ' + error.message);
         res.status(500).send('An error occurred while deleting the file.');
     }
 });

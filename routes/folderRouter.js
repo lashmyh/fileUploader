@@ -3,6 +3,8 @@ const { PrismaClient } = require('@prisma/client');
 const router = express.Router();
 const prisma = new PrismaClient();
 const formatFolderWithFiles = require('../utils/formatFolder');
+const logger = require('../utils/logger');
+
 
 
 router.get('/', async(req, res) => {
@@ -16,6 +18,7 @@ router.get('/', async(req, res) => {
 
             res.render('folders', { user: req.user, folders });
         } catch (error) {
+            logger.error('Error fetching folders: ' + error.message);
             res.status(500).send("An error occured while fetching the folders.");
         }
 
@@ -66,7 +69,7 @@ router.post('/', async(req, res, next) => {
 
 
     } catch (error) {
-        console.error(error);
+        logger.error('Error creating folder: ' + error.message);
         next(error);  
     }
 });
@@ -98,7 +101,7 @@ router.post('/:id/delete', async(req, res) => {
         }
 
     }catch (error) {
-        console.error('Error deleting folder. File does not exist', error);
+        logger.error('Error deleting folder: ' + error.message);
         res.status(500).send('Error deleting folder');
     }
 })
@@ -126,7 +129,7 @@ router.get('/:id', async (req, res) => {
           folder: formatFolderWithFiles(folderWithFiles),
         });
       } catch (error) {
-        console.error("Error fetching folder:", error);
+        logger.error('Error fetching folder: ' + error.message);
         res.status(500).send("An error occurred while fetching the folder.");
       }
     } else {

@@ -9,6 +9,9 @@ const flash = require('connect-flash');
 const multer = require('multer');
 const uploadRouter = require('./routes/uploadRouter');
 
+require('dotenv').config(); 
+const PORT = process.env.PORT || 3000;
+
 initializePassport(passport);
 
 const app = express();
@@ -19,13 +22,23 @@ app.use(express.static((__dirname + '/public')));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+  app.set('trust proxy', 1); // trust first proxy
+}
+
 //session middleware
 
 app.use(session({
-  secret: 'secret',
+  secret: process.env.SESSION_SECRET || 'secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }
+  cookie: {
+    secure: isProduction, 
+    httpOnly: true,
+    sameSite: 'lax'
+  }
 }));
 
 //passport middleware
@@ -46,8 +59,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 //application routes
 
 app.use('/', authRoutes);
@@ -55,7 +66,12 @@ app.use('/folders', folderRouter);
 app.use('/upload', uploadRouter);
 app.use('/file', fileRouter);
 
+//404 handler
+app.use((req, res, next) => {
+  res.status(404).render('404');
+});
 
 
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

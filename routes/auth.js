@@ -4,12 +4,16 @@ const passport = require('passport');
 const { PrismaClient } = require('@prisma/client');
 const router = express.Router();
 const prisma = new PrismaClient();
+const validator = require('validator');
+const logger = require('../utils/logger');
+
 
 router.get('/', (req, res) => {
   res.redirect('/folders');
 });
 
 router.get('/login', (req, res) => {
+  if (req.isAuthenticated()) return res.redirect('/folders');
   res.render('login');
 });
 
@@ -20,12 +24,17 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/signup', (req, res) => {
+  if (req.isAuthenticated()) return res.redirect('/folders');
   res.render('signup');
 });
 
 router.post('/signup', async (req, res) => {
   const { name, email, password, password_confirm } = req.body;
 
+    if (!validator.isEmail(email)) {
+      req.flash('error_msg', 'Please enter a valid email address.');
+      return res.redirect('/signup');
+    }
     //check password match
     if (password !== password_confirm) {
         req.flash('error_msg', 'Passwords do not match!');
@@ -59,7 +68,8 @@ router.post('/signup', async (req, res) => {
     req.flash('success_msg', 'You are now registered and can log in!');
     res.redirect('/login');
 
-  } catch (err) {
+  } catch (error) {
+    logger.error('Error signing up: ' + error.message);
     req.flash('error_msg', 'Something went wrong! Please try again.');
     res.redirect('/signup');
   }
