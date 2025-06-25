@@ -2,7 +2,7 @@
 
 A simple file storage system built with Express.js, and EJS. This project allows users to sign up, log in, and manage their files and folders. It uses PostgreSQL for data storage and integrates with Supabase for file storage.
 
-Link to deployment: https://fileuploader-production-2286.up.railway.app/
+Link to deployment: [fileUploader](https://fileuploader-ws69.onrender.com/login)/
 
 ![Screenshot](https://github.com/user-attachments/assets/aeec1241-4b79-4c0a-ad14-69b0cf655665)
 
